@@ -11,7 +11,6 @@ env.config();
 mongoose
   .connect(
     // `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.bo5ea.mongodb.net/${process.env.MONGO_DB_DATABASE}`,
-    // `mongodb+srv://shubhra08:shubhra08@cluster0.56ii0.mongodb.net/slack_db?retryWrites=true&w=majority`,
     process.env.dburl,
     {
       useNewUrlParser: true,
