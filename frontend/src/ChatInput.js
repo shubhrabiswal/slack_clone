@@ -1,8 +1,7 @@
 import { Button } from '@material-ui/core';
 import React, { useState } from 'react'
 import "./ChatInput.css";
-import db from "./firebase";
-import firebase from "firebase";
+import axios from 'axios'
 import { useStateValue } from "./StateProvider";
 
 function ChatInput({ channelName, channelId }) {
@@ -13,12 +12,12 @@ function ChatInput({ channelName, channelId }) {
         e.preventDefault();
 
         if (channelId) {
-            db.collection("rooms").doc(channelId).collection("messages").add({
+            axios.post(`/new/message?id=${channelId}`,{
                 message: input,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                timestamp: Date.now(),
                 user: user.displayName,
                 userImage: user.photoURL,
-            });
+            })
         }
         setInput("");
     };
