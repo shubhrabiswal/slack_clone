@@ -16,70 +16,70 @@ const Login = () => {
 
     const signIn = () => {
         auth.signInWithPopup(provider)
-        // auth.signInWithPopup(provider)
-        auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        auth.signInWithPopup(provider)
             .then((result) => {
                 dispatch({
                     type: actionTypes.SET_USER,
-@ -20,6 +26,36 @@ const Login = () => {
-                alert(error.message);
-            });
-    };
-    const googleSuccess = async (res) => {
-        // window.alert("Login Successful")
-        console.log("res",res)
-        console.log(res.profileObj)
-        const result  = res?.profileObj;
-        console.log("result",result)
-        const token = res?.tokenId;
-        // console.log("token",token)
-
-        try{
-            dispatch({ 
-                type: actionTypes.SET_USER,
-                user: result,
-                // data: { result, token } 
-            })
-            // history.push("/");
-        }catch(error){
-            console.log(error);
+                    user: result
+                })
         }
-        
-    }
+        const googleSuccess = async (res) => {
+            // window.alert("Login Successful")
+            console.log("res", res)
+            console.log(res.profileObj)
+            const result = res?.profileObj;
+            console.log("result", result)
+            const token = res?.tokenId;
+            // console.log("token",token)
 
-    const googleFailure = (err) => {
-        console.log(err)
-        console.log("Google Sign in was unsuccessful")
-    }
-    const responseGoogle = (response) => {
-        console.log(response);
-    }
-    console.log("lsjfljlhfhlhsl")
+            try {
+                dispatch({
+                    type: actionTypes.SET_USER,
+                    user: result,
+                    // data: { result, token } 
+                })
+                // history.push("/");
+            } catch (error) {
+                console.log(error);
+            }
 
-    return (
-        <div className="login" >
-@ -29,9 +65,21 @@ const Login = () => {
-                    alt=""
-                />
+        }
 
-                <h1>Sign in to Clever Programmer</h1>
-                <p>cleverprogrammer.slack.com</p>
-                <Button onClick={signIn}>Sign in with Google</Button>
-                <h1>Sign in</h1>
-                <p>sign.slack.com</p>
-                {/* <Button onClick={signIn}>Sign in with Google</Button> */}
-                <GoogleLogin
-                    clientId="162754271125-fd79e2688vimj32jdj1ah2v03vk279jc.apps.googleusercontent.com"
-                    render={renderProps => (
-                        <button onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                        SignIn</button>
-                      )}
-                    onSuccess={googleSuccess}
-                    onFailure={googleFailure}
-                    cookiePolicy={'single_host_origin'}
-                    isSignedIn={true}
-                />
+        const googleFailure = (err) => {
+            console.log(err)
+            console.log("Google Sign in was unsuccessful")
+        }
+        const responseGoogle = (response) => {
+            console.log(response);
+        }
+        console.log("lsjfljlhfhlhsl")
 
-            </div>
-        </div >
-    )
+        return (
+            <div>
+                <div className="login" >
+
+                    <h1>Sign in Slack</h1>
+                    <p>signin.slack.com</p>
+                    {/* <Button onClick={signIn}>Sign in with Google</Button> */}
+                    <h1>Sign in</h1>
+                    <p>sign.slack.com</p>
+                    {/* <Button onClick={signIn}>Sign in with Google</Button> */}
+                    <GoogleLogin
+                        clientId="162754271125-fd79e2688vimj32jdj1ah2v03vk279jc.apps.googleusercontent.com"
+                        render={renderProps => (
+                            <button onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                                SignIn</button>
+                        )}
+                        onSuccess={googleSuccess}
+                        onFailure={googleFailure}
+                        cookiePolicy={'single_host_origin'}
+                        isSignedIn={true}
+                    />
+
+                </div>
+            </div >
+        )
+}
+
+
+export default Login;
